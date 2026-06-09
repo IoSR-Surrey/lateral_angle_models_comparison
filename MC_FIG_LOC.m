@@ -249,7 +249,11 @@ ax.FontSize = 14;
 %% DIETZ2011
 [fine,fc,ild,env] = dietz2011(bin_stim,fs);
 
-est_angle = itd2angle([fine.itd env.itd],template_dietz2011);
+%MOD
+itd_tmp = dietz2011_unwrapitd(fine.itd,ild(:,1:12),fine.f_inst,2.5);
+%est_angle = itd2angle([fine.itd env.itd],template_dietz2011);
+est_angle = itd2angle([itd_tmp env.itd],template_dietz2011);
+%MOD
 
 subplot(4,2,6)
 plot(fc,nanmedian(est_angle,1),'LineWidth',2);

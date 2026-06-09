@@ -241,8 +241,11 @@ for idir = 1:length(target_angles)
     [fine,fc,ild,env] = dietz2011(bin_stim,fs);
     
     subplot(6,2,9); hold on;
-    plot(fc,[nanmedian(fine.itd,1) nanmedian(env.itd,1)]*1000,'LineWidth',2);
-    
+    % MOD
+    itd_tmp = dietz2011_unwrapitd(fine.itd,ild(:,1:12),fine.f_inst,2.5);
+    plot(fc,[nanmedian(itd_tmp,1) nanmedian(env.itd,1)]*1000,'LineWidth',2);%,'FaceColor',[255,217,47]/256);
+    %plot(fc,[nanmedian(fine.itd,1) nanmedian(env.itd,1)]*1000,'LineWidth',2);%,'FaceColor',[255,217,47]/256);
+    % MOD    
     set(gca, 'XScale', 'log'); ylim([-1.05 1.05])
     ylabel('ITD (ms)'); xlabel('Frequency channel')
     title("ITD - dietz2011")
